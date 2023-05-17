@@ -1,0 +1,15 @@
+.favButton {
+    width: 35px;
+    &:hover {
+        path {
+            fill: red;
+        }
+    }
+}   
+
+.isFavorite {
+    width: 35px;
+    path {
+        fill: red;
+    }
+}

@@ -1,0 +1,1 @@
+export {SecondMovieCard} from './SecondMovieCard'

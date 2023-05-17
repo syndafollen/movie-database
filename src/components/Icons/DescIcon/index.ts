@@ -1,0 +1,1 @@
+export { DescIcon } from "./DescIcon"

@@ -2,16 +2,18 @@ import { ChangeEvent, useEffect, useState, useMemo } from "react";
 import "./App.css";
 import axios from "axios";
 import { URL, API_KEY } from "./constants";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import {
   MovieSearch,
-  MovieCard,
   Pagination,
   Preloader,
   SortByPopularity,
   SecondMovieCard,
   LanguageButton,
 } from "./components";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { add, remove } from "./redux/slices/favoritesSlice";
 
 // https://api.themoviedb.org/
 // eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NjI4OGMwNDY1ZGI1NWM5OWM3NmNjNDgyMDlkMGIwZSIsInN1YiI6IjVmYzgwZTIwZGFmNTdjMDAzZmIxNGQyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yTjTeQDpEpxvS_OBS-Vte9QlLaCj2fbZeoLW1q6fV7s
@@ -21,18 +23,30 @@ import {
 // https://image.tmdb.org/t/p/w500/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg // url pro obrazek
 
 function App() {
-  const [movies, setMovies] = useState<any[]>([]);
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favorites);
+  const [movies, setMovies] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [favorites, setFavorites] = useState<number[]>([]);
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("asc");
   const [language, setLanguage] = useState("ru-RU");
 
   const handleAddToFavorite = (id: number) => {
-    favorites.includes(id)
-      ? setFavorites(favorites.filter((item) => item !== id))
-      : setFavorites([...favorites, id]);
+    const favoriteMoviesArray = favorites.filter(
+      ({ id: movieId }) => movieId === id
+    );
+    const movieToAdd = movies.filter(
+      ({ id: movieId }) => movieId === id
+    )[0];
+
+    if (favoriteMoviesArray.length === 0) {
+      dispatch(add(movieToAdd));
+    } else {
+      dispatch(remove(id));
+    }
   };
+
+  console.log("favorites:", favorites);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(event?.target?.value);
@@ -96,13 +110,11 @@ function App() {
     })();
   }, [page, sortBy, language]);
 
-  console.log("movies:", movies);
-  console.log("favorites:", favorites);
-  console.log("sortBy:", sortBy);
-  console.log("lang", language);
-
   return (
     <Grid container spacing={2} justifyContent="flex-end">
+      <Link to="/favorites">
+        <Button>Favorites</Button>
+      </Link>
       <LanguageButton
         language={language}
         languageName="EN"
@@ -121,22 +133,24 @@ function App() {
       {filteredBySearch.length === 0 ? (
         <Preloader />
       ) : (
-        <Grid item container spacing={2} justifyContent="center"
-        alignItems="center">
+        <Grid
+          item
+          container
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
+        >
           <Grid item>
             <MovieSearch
               handleSearchChange={handleSearchChange}
               searchInputValue={searchInputValue}
             />
-                <Pagination
-                  page={page}
-                  onPrevClick={handlePrevClick}
-                  onNextClick={handleNextClick}
-                />
-                <SortByPopularity
-                  toggleSort={handleChangeSort}
-                  sortBy={sortBy}
-                />
+            <Pagination
+              page={page}
+              onPrevClick={handlePrevClick}
+              onNextClick={handleNextClick}
+            />
+            <SortByPopularity toggleSort={handleChangeSort} sortBy={sortBy} />
           </Grid>
           <Grid item container spacing={2} direction="row">
             {filteredBySearch.map((movie) => (
@@ -147,7 +161,7 @@ function App() {
                   releaseDate={movie?.release_date}
                   posterPath={movie?.poster_path}
                   handleAddToFavorite={handleAddToFavorite}
-                  isFavorite={favorites.includes(movie?.id)}
+                  isFavorite={favorites.filter(({ id }) => movie?.id === id).length !== 0}
                 />
               </Grid>
             ))}

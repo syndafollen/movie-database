@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Box, Typography, CardContent, CardMedia } from "@mui/material";
+import { Card, Box, Typography } from "@mui/material";
 import { SecondCardProps } from "./types";
 import { AddToFavorite } from "../AddToFavorite";
 

@@ -1,17 +1,14 @@
-import React from "react";
 import { LanguageButtonProps } from "./types";
-import { Button, Box, Typography } from "@mui/material";
+import { Button, Box, Typography } from "@mui/joy";
 
 export const LanguageButton = ({
   languageName,
   language,
   onLanguageChange,
-}: LanguageButtonProps) => {
-  return (
+}: LanguageButtonProps) => (
     <Box>
-      <Button variant="contained" onClick={() => onLanguageChange(languageName)}>
+      <Button variant="outlined" onClick={() => onLanguageChange(languageName)} disabled={language.includes(languageName)}>
         <Typography>{languageName}</Typography>
       </Button>
     </Box>
   );
-};

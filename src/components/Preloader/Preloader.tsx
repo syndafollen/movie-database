@@ -1,4 +1,5 @@
 import './styles.css'
+import { Typography } from '@mui/joy'
 
 export const Preloader = () => {
   return (

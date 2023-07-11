@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button } from "@mui/joy";
 import { SortByPopularityProps } from './types'
 import { DescIcon, AscIcon } from "../Icons";
 

@@ -1,10 +1,10 @@
-import { Button, Grid } from "@mui/material";
+import { Button, CardProps, Grid } from "@mui/joy";
 import { Link } from "react-router-dom";
-import { SecondMovieCard } from "../../components";
-import "../../App.css";
-import { useState, useEffect } from "react";
+import "../MainPage/MainPage.css";
+import { useState, useEffect, Key } from "react";
 import { remove } from "../../redux/slices/favoritesSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { MovieCard } from "../../components";
 
 
 
@@ -24,16 +24,15 @@ export const FavoritesPage = () => {
         <Button>Back</Button>
       </Link>
       <Grid item container spacing={2} direction="row" xs={12}>
-        {favorites.map((movie) => (
+        {favorites.map((movie: CardProps) => (
           <Grid item xs={12} sm={6} lg={1.5} key={movie?.id}>
-            <SecondMovieCard
+            <MovieCard
               title={movie?.title}
               releaseDate={movie?.release_date}
               posterPath={movie?.poster_path}
               id={movie?.id}
               handleAddToFavorite={handleRemoveFavorite}
-              isFavorite={true}
-            />
+              isFavorite={true} description={""}            />
           </Grid>
         ))}
       </Grid>

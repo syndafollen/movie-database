@@ -1,4 +1,4 @@
-import { Button, Box, Typography } from '@mui/material'
+import { Button, Box, Typography } from '@mui/joy'
 import { PaginationProps } from './types'
 
 export const Pagination = ({ page, onPrevClick, onNextClick }: PaginationProps) => {    

@@ -17,6 +17,4 @@ export const favoritesSlice = createSlice({
   },
 });
 
-console.log("favoritesSlice:", favoritesSlice);
-
 export const { add, remove } = favoritesSlice.actions;

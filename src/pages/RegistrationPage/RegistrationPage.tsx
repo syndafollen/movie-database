@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Button, Input, Box, Typography } from "@mui/joy";
 import axios from "axios";
 import { Maybe } from "../../components";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "../../constants";
 
 export const RegistrationPage = () => {
@@ -29,42 +28,34 @@ export const RegistrationPage = () => {
       setIsRegistered(true);
       setUsername("");
       setPassword("");
-      setTimeout(()=>{
+      setTimeout(() => {
         navigate("/login");
-      }, [3000])
+      }, [3000]);
     }
   };
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      height="100%"
-    >
-      <Maybe
-        when={!isRegistered}
-        fallback={<Typography variant="h1">Successfully registered</Typography>}
-      >
-        <Box display="flex" flexDirection="column" maxWidth={400} width="100%">
-          <Typography variant="h4">Registration Page</Typography>
+    <div>
+      <Maybe when={!isRegistered} fallback={<h1>Successfully registered</h1>}>
+        <div>
+          <h1>Registration Page</h1>
 
-          <Input
+          <input
             onChange={handleUsernameChange}
             value={username}
             name="username"
           />
-          <Input
+          <input
             onChange={handlePasswordChange}
             value={password}
             name="password"
           />
-          <Button onClick={handleSubmit}>Sign up</Button>
+          <button onClick={handleSubmit}>Sign up</button>
           <Link to="/">
-            <Button>Back to main page</Button>
+            <button>Back to main page</button>
           </Link>
-        </Box>
+        </div>
       </Maybe>
-    </Box>
+    </div>
   );
 };

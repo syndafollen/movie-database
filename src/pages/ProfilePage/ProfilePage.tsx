@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Input, Button } from "@mui/joy";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../constants";
 import { refreshAccessToken } from "../../utils.ts";
-import './profile.css'
+import "./profile.css";
 
 export const ProfilePage = () => {
   const [userData, setUserData] = useState({});
   const [userEmail, setUserEmail] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
   const [isUserUpdateLoading, setIsUserUpdateLoading] = useState(false);
-
 
   const handleEmailChange = (event) => {
     setUserEmail(event?.target?.value);
@@ -31,15 +29,14 @@ export const ProfilePage = () => {
             "x-auth-token": accessToken,
           },
         });
-        
+
         setUserData(data);
       } catch (error) {
-
         if (error.response.status === 401) {
           refreshAccessToken();
           fetchProfileData();
         }
-        console.log('error: ', error)
+        console.log("error: ", error);
       }
     }
 
@@ -67,50 +64,30 @@ export const ProfilePage = () => {
   };
 
   return (
-    <Box style={{ position: "fixed", top: 50, left: 50 }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          flexDirection: "column",
-          gap: 2,
-        }}
-      >
-        <Box
-          sx={{
-            borderRadius: "50%",
-            overflow: "hidden",
-            width: 200,
-            height: 200,
-          }}
-        >
+    <div>
+      <div>
+        <div>
           <img src={userData?.avatar} className="avatar" />
-        </Box>
-        <Typography level="h3" color="primary">
-          Username: {userData?.key}
-        </Typography>
-        <Typography level="h3" color="primary">
-          E-mail: {userData?.email}
-        </Typography>
-        <Input
+        </div>
+        <h1>Username: {userData?.key}</h1>
+        <h1>E-mail: {userData?.email}</h1>
+        <input
           placeholder="Type image url here"
           value={userAvatar}
           onChange={handleAvatarChange}
         />
-        <Input
+        <input
           placeholder="Type email here"
           value={userEmail}
           onChange={handleEmailChange}
         />
-        <Button onClick={handleSubmit} loading={isUserUpdateLoading}>
+        <button onClick={handleSubmit} loading={isUserUpdateLoading}>
           Submit
-        </Button>
+        </button>
         <Link to="/">
-          <Button>Back to main page</Button>
+          <button>Back to main page</button>
         </Link>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Input, Button } from "@mui/joy";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./profile.css";
 import { API_URL } from "../../constants";
-import {refreshAccessToken} from '../../utils.ts'
+import { refreshAccessToken } from "../../utils.ts";
 
 // /updatepassword
 
@@ -23,7 +22,7 @@ export const SettingsPage = () => {
 
   const handleSubmit = async () => {
     const accessToken = localStorage.getItem("accessToken");
-    
+
     try {
       const response = await axios.put(
         `${API_URL}/updatepassword`,
@@ -38,44 +37,35 @@ export const SettingsPage = () => {
         }
       );
 
-      console.log('response:', response.data)
+      console.log("response:", response.data);
     } catch (error) {
-       if (error.response.status === 401) {
-         refreshAccessToken();
-         handleSubmit();
-       }
+      if (error.response.status === 401) {
+        refreshAccessToken();
+        handleSubmit();
+      }
     }
   };
 
   return (
-    <Box style={{ position: "fixed", top: 50, left: 50 }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          flexDirection: "column",
-          gap: 2,
-        }}
-      >
-        <Input
+    <div>
+      <div>
+        <input
           placeholder="Type old password here"
           value={oldPassword}
           onChange={handleOldPasswordChange}
         />
-        <Input
+        <input
           placeholder="Type new password here"
           value={newPassword}
           onChange={handleNewPasswordChange}
         />
-        <Button onClick={handleSubmit} loading={isUserUpdateLoading}>
+        <button onClick={handleSubmit} loading={isUserUpdateLoading}>
           Submit
-        </Button>
+        </button>
         <Link to="/">
-          <Button>Back to main page</Button>
+          <button>Back to main page</button>
         </Link>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };

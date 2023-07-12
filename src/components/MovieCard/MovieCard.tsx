@@ -1,5 +1,4 @@
 import { CardProps } from "./types";
-import { Box, Typography } from "@mui/joy";
 import { AddToFavorite } from "../AddToFavorite/AddToFavorite";
 
 export function MovieCard({
@@ -17,49 +16,25 @@ export function MovieCard({
       : `https://image.tmdb.org/t/p/original${posterPath}`;
 
   return (
-    <Box
-      sx={{
-        height: "600px",
-        paddingTop: 2,
-        paddingLeft: 2,
-        paddingRight: 2,
-      }}
-    >
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
-        alignItems="center"
-        height="100%"
-      >
-        <Typography variant="h6">{title}</Typography>
-        <Box display="flex" justifyContent="center">
-          <Box
-            sx={{
-              position: "relative",
-              left: 150,
-            }}
-          >
+    <div>
+      <div>
+        <h1>{title}</h1>
+        <div>
+          <div>
             <AddToFavorite
               id={id}
               handleAddToFavorite={handleAddToFavorite}
               isFavorite={isFavorite}
             />
-          </Box>
+          </div>
           <img src={posterUrl} width="150" />
-        </Box>
-        <Box
-          sx={{
-            marginBottom: 2,
-          }}
-        >
-          <Typography variant="body1">{description}</Typography>
-        </Box>
-        {releaseDate && (
-          <Typography variant="body1">Release date: {releaseDate}</Typography>
-        )}{" "}
+        </div>
+        <div>
+          <h1>{description}</h1>
+        </div>
+        {releaseDate && <h1>Release date: {releaseDate}</h1>}{" "}
         {/* jestli pred && true zobraz po && */}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 import { ChangeEvent, useEffect, useState, useMemo } from "react";
 import "./MainPage.css";
-import { Button, Grid, Typography, Box } from "@mui/joy";
 import {
   MovieSearch,
   Pagination,
@@ -100,16 +99,16 @@ export const MainPage = () => {
   }, [page, sortBy, language, dispatch]);
 
   return (
-    <Grid container spacing={2} justifyContent="flex-end">
+    <div>
       <Maybe when={favorites.length > 0}>
         <Footer text="Save changes?" onSave={handleSaveToFavorites} />
       </Maybe>
 
       <Link to="/profile">
-        <Button>Profile</Button>
+        <button>Profile</button>
       </Link>
       <Link to="/favorites">
-        <Button>Favorites</Button>
+        <button>Favorites</button>
       </Link>
       <LanguageButton
         language={language}
@@ -127,20 +126,14 @@ export const MainPage = () => {
         onLanguageChange={handleChangeLanguage}
       />
       <Link to="/login">
-        <Button>Login</Button>
+        <button>Login</button>
       </Link>
       <Link to="/reg">
-        <Button>Register</Button>
+        <button>Register</button>
       </Link>
 
-      <Grid
-        item
-        container
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <Grid item>
+      <div>
+        <div>
           <MovieSearch
             handleSearchChange={handleSearchChange}
             searchInputValue={searchInputValue}
@@ -151,21 +144,15 @@ export const MainPage = () => {
             onNextClick={handleNextClick}
           />
           <SortByPopularity toggleSort={handleChangeSort} sortBy={sortBy} />
-        </Grid>
+        </div>
         <Maybe when={!movies.isLoading} fallBack={<Preloader />}>
           <Maybe
             when={filteredBySearch.length !== 0}
-            fallback={<Typography variant="h3">NO RESULTS</Typography>}
+            fallback={<h3>NO RESULTS</h3>}
           >
-            <Grid
-              item
-              container
-              spacing={2}
-              direction="row"
-              sx={{ flexGrow: 1 }}
-            >
+            <div>
               {filteredBySearch.map((movie) => (
-                <Grid item xs={12} sm={6} lg={3} key={movie?.id}>
+                <div key={movie?.id}>
                   <MovieCard
                     id={movie?.id}
                     title={movie?.title}
@@ -178,12 +165,12 @@ export const MainPage = () => {
                     }
                     description={""}
                   />
-                </Grid>
+                </div>
               ))}
-            </Grid>
+            </div>
           </Maybe>
         </Maybe>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 };

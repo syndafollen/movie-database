@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button, Input, Box, Typography } from "@mui/joy";
 import axios from "axios";
 import { Maybe } from "../../components";
 import { useNavigate, Link } from "react-router-dom";
@@ -20,10 +19,10 @@ export const LoginPage = () => {
   };
 
   const handleSubmit = async () => {
-    const response = await axios.post(
-      `${API_URL}/login`,
-      { username, password }
-    );
+    const response = await axios.post(`${API_URL}/login`, {
+      username,
+      password,
+    });
 
     const accessToken = response.data.accessToken;
     const refreshToken = response.data.refreshToken;
@@ -33,41 +32,36 @@ export const LoginPage = () => {
       setPassword("");
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      setTimeout(()=>{
+      setTimeout(() => {
         navigate("/profile");
-      }, [3000])
+      }, [3000]);
     }
   };
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      height="100%"
-    >
+    <div>
       <Maybe
         when={!isRegistered}
-        fallback={<Typography variant="h1">Successfully registered</Typography>}
+        fallback={<h1 variant="h1">Successfully registered</h1>}
       >
-        <Box display="flex" flexDirection="column" maxWidth={400} width="100%">
-          <Typography variant="h4">Login Page</Typography>
-          <Input
+        <div>
+          <h1>Login Page</h1>
+          <input
             onChange={handleUsernameChange}
             value={username}
             name="username"
           />
-          <Input
+          <input
             onChange={handlePasswordChange}
             value={password}
             name="password"
           />
-          <Button onClick={handleSubmit}>Sign in</Button>
+          <button onClick={handleSubmit}>Sign in</button>
           <Link to="/">
-            <Button>Back to main page</Button>
+            <button>Back to main page</button>
           </Link>
-        </Box>
+        </div>
       </Maybe>
-    </Box>
+    </div>
   );
 };

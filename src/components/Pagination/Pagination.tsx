@@ -1,12 +1,17 @@
-import { Button, Box, Typography } from '@mui/joy'
-import { PaginationProps } from './types'
+import { PaginationProps } from "./types";
 
-export const Pagination = ({ page, onPrevClick, onNextClick }: PaginationProps) => {    
+export const Pagination = ({
+  page,
+  onPrevClick,
+  onNextClick,
+}: PaginationProps) => {
   return (
-    <Box mt={2} display="flex" alignItems="center" justifyContent="space-between">
-        <Button variant='contained' onClick={onPrevClick} disabled={page === 1 ? true : false}>Prev</Button>
-        <Typography>{page}</Typography>
-        <Button variant='contained' onClick={onNextClick}>Next</Button>
-    </Box>
-  )
-}
+    <div>
+      <button onClick={onPrevClick} disabled={page === 1 ? true : false}>
+        Prev
+      </button>
+      <h1>{page}</h1>
+      <button onClick={onNextClick}>Next</button>
+    </div>
+  );
+};

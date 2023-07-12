@@ -1,11 +1,12 @@
-import { Input  } from "@mui/joy";
 import styles from "./MovieSearch.module.scss";
-import { SearchProps } from './types'
+import { SearchProps } from "./types";
 
-export const MovieSearch = ({ searchInputValue, handleSearchChange }: SearchProps) => (
-  <Input 
+export const MovieSearch = ({
+  searchInputValue,
+  handleSearchChange,
+}: SearchProps) => (
+  <input
     className={styles.input}
-    variant="outlined"
     onChange={handleSearchChange}
     placeholder="Search here!"
     value={searchInputValue}

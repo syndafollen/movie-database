@@ -1,15 +1,12 @@
-.favButton {
-    width: 35px;
-    &:hover {
-        path {
-            fill: red;
-        }
-    }
-}   
+button {
+  position: absolute;
+  right: 65px;
+  top: 70px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
 
-.isFavorite {
-    width: 35px;
-    path {
-        fill: red;
-    }
+button:hover svg {
+  fill: #ff0000;
 }

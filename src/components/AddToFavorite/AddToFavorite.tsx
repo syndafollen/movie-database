@@ -1,4 +1,4 @@
-import styles from "./AddToFavorite.module.scss";
+import "./AddToFavorite.module.scss";
 import { AddToFavProps } from "./types";
 import { FavIcon } from "../Icons";
 

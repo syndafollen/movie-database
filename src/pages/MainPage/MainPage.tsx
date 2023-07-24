@@ -103,56 +103,66 @@ export const MainPage = () => {
       <Maybe when={favorites.length > 0}>
         <Footer text="Save changes?" onSave={handleSaveToFavorites} />
       </Maybe>
-
-      <Link to="/profile">
-        <button>Profile</button>
-      </Link>
-      <Link to="/favorites">
-        <button>Favorites</button>
-      </Link>
-      <LanguageButton
-        language={language}
-        languageName="EN"
-        onLanguageChange={handleChangeLanguage}
-      />
-      <LanguageButton
-        language={language}
-        languageName="CZ"
-        onLanguageChange={handleChangeLanguage}
-      />
-      <LanguageButton
-        language={language}
-        languageName="RU"
-        onLanguageChange={handleChangeLanguage}
-      />
-      <Link to="/login">
-        <button>Login</button>
-      </Link>
-      <Link to="/reg">
-        <button>Register</button>
-      </Link>
-
+      <div className="header">
+        <div className="header-logo">
+          <a href="/main">Movie Database</a>
+        </div>
+        <div>
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+          <Link to="/reg">
+            <button>Register</button>
+          </Link>
+          <Link to="/profile">
+            <button>Profile</button>
+          </Link>
+          <Link to="/favorites">
+            <button>Favorites</button>
+          </Link>
+        </div>
+      </div>
+      <div className="language">
+        <LanguageButton
+          language={language}
+          languageName="EN"
+          onLanguageChange={handleChangeLanguage}
+        />
+        <LanguageButton
+          language={language}
+          languageName="CZ"
+          onLanguageChange={handleChangeLanguage}
+        />
+        <LanguageButton
+          language={language}
+          languageName="RU"
+          onLanguageChange={handleChangeLanguage}
+        />
+      </div>
       <div>
         <div>
-          <MovieSearch
-            handleSearchChange={handleSearchChange}
-            searchInputValue={searchInputValue}
-          />
-          <Pagination
-            page={page}
-            onPrevClick={handlePrevClick}
-            onNextClick={handleNextClick}
-          />
+          <div className="search">
+            <MovieSearch
+              handleSearchChange={handleSearchChange}
+              searchInputValue={searchInputValue}
+            />
+          </div>
+            <Pagination
+              page={page}
+              onPrevClick={handlePrevClick}
+              onNextClick={handleNextClick}
+            />
           <SortByPopularity toggleSort={handleChangeSort} sortBy={sortBy} />
         </div>
+
         <Maybe when={!movies.isLoading} fallBack={<Preloader />}>
           <Maybe
             when={filteredBySearch.length !== 0}
             fallback={<h3>NO RESULTS</h3>}
           >
-            <div>
+            <div className="container">
               {filteredBySearch.map((movie) => (
-                <div key={movie?.id}>
+                <div className="movie" key={movie?.id}>
                   <MovieCard
                     id={movie?.id}
                     title={movie?.title}

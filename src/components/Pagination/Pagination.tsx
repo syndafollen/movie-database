@@ -1,4 +1,5 @@
 import { PaginationProps } from "./types";
+import './Pagination.scss'
 
 export const Pagination = ({
   page,
@@ -6,7 +7,7 @@ export const Pagination = ({
   onNextClick,
 }: PaginationProps) => {
   return (
-    <div>
+    <div className="pagination">
       <button onClick={onPrevClick} disabled={page === 1 ? true : false}>
         Prev
       </button>

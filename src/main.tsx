@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { FavoritesPage, MainPage, RegistrationPage, LoginPage, ProfilePage, SettingsPage } from './pages'
-import './index.css'
+import './index.scss'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './redux/store.ts'

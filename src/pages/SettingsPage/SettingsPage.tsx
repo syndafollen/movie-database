@@ -4,6 +4,7 @@ import axios from "axios";
 import "./profile.css";
 import { API_URL } from "../../constants";
 import { refreshAccessToken } from "../../utils.ts";
+import { SnackbarProvider, enqueueSnackbar } from 'notistack';
 
 // /updatepassword
 
@@ -42,6 +43,7 @@ export const SettingsPage = () => {
       if (error.response.status === 401) {
         refreshAccessToken();
         handleSubmit();
+        enqueueSnackbar("Error");
       }
     }
   };
@@ -59,10 +61,13 @@ export const SettingsPage = () => {
           value={newPassword}
           onChange={handleNewPasswordChange}
         />
-        <button onClick={handleSubmit} loading={isUserUpdateLoading}>
-          Submit
-        </button>
-        <Link to="/">
+        <div>
+          <SnackbarProvider />
+          <button onClick={handleSubmit} loading={isUserUpdateLoading}>
+            Submit
+          </button>
+        </div>
+        <Link to="/">\
           <button>Back to main page</button>
         </Link>
       </div>

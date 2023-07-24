@@ -1,5 +1,6 @@
 import { CardProps } from "./types";
 import { AddToFavorite } from "../AddToFavorite/AddToFavorite";
+import './MovieCard.scss'
 
 export function MovieCard({
   title,
@@ -16,23 +17,19 @@ export function MovieCard({
       : `https://image.tmdb.org/t/p/original${posterPath}`;
 
   return (
-    <div>
+    <div className="movie-card">
+      <h2>{title}</h2>
       <div>
-        <h1>{title}</h1>
-        <div>
-          <div>
-            <AddToFavorite
-              id={id}
-              handleAddToFavorite={handleAddToFavorite}
-              isFavorite={isFavorite}
-            />
-          </div>
-          <img src={posterUrl} width="150" />
-        </div>
-        <div>
-          <h1>{description}</h1>
-        </div>
-        {releaseDate && <h1>Release date: {releaseDate}</h1>}{" "}
+        <AddToFavorite
+          id={id}
+          handleAddToFavorite={handleAddToFavorite}
+          isFavorite={isFavorite}
+        />
+      </div>
+      <img src={posterUrl} width="150" />
+      <div className="information">
+        <h3>{description}</h3>
+        {releaseDate && <h3>Release date: {releaseDate}</h3>}{" "}
         {/* jestli pred && true zobraz po && */}
       </div>
     </div>
